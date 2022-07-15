@@ -1,5 +1,5 @@
-let massa = 150,
-    tinggi = 1.78,
+let massa = 100,
+    tinggi = 1.27,
     imt = massa / tinggi ** 2
     
 
@@ -16,3 +16,4 @@ if (imt < 18.5 ) {
 }
 
 console.log(notif)
+

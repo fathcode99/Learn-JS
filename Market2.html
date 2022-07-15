@@ -2,9 +2,10 @@
     let Apel = 10000,
         Anggur = 15000,
         Jeruk  = 20000,
+
         stApel = 5,
         stAnggur = 5,
-        stJeruk = 5,
+        stJeruk = 5
 
         qtyApel = +prompt(`Harga Apel Rp ${Apel} / buah. Stock yang tersedia ${stApel}. Mau beli berapa?`)
         if (qtyApel > stApel) {
@@ -32,10 +33,10 @@
         listBelanja = +prompt(`List dan total belanja anda :
         1. Apel ${qtyApel} buah x Rp ${Apel} = Rp ${totalApel}
         2. Anggur ${qtyAnggur} buah x Rp ${Anggur} = Rp ${totalAnggur}
-        3. Jeruk ${qtyJeruk} buah x Rp ${Anggur} = Rp ${totalJeruk}
+        3. Jeruk ${qtyJeruk} buah x Rp ${Jeruk} = Rp ${totalJeruk}
 
         Total Biaya :
-        Rp ${totalApel + totalAnggur + totalJeruk}
+        Rp ${totalHarga}
 
         Masukkan besaran nominal yang akan anda bayarkan :
         `)
