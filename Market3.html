@@ -1,0 +1,73 @@
+<script>
+    let Apel = 10000,
+        Anggur = 15000,
+        Jeruk = 20000,
+
+        stApel = 5,
+        stAnggur = 5,
+        stJeruk = 5
+
+    qtyApel = +prompt(`Harga Apel Rp ${Apel} / buah. Stock yang tersedia ${stApel}. Mau beli berapa?`)
+    while (qtyApel > stApel) {
+        qtyApel = +prompt(`Pembelian Apel melebihi stock, yakni ${stApel}. Masukan Kembali Jumlah Pembelian`)
+        qtyApel <= 5
+    }
+
+    qtyAnggur = +prompt(`Harga Anggur Rp ${Anggur} / buah. Stock yang tersedia ${stAnggur}. Mau beli berapa?`)
+    while (qtyAnggur > stAnggur) {
+        qtyAnggur = +prompt(`Pembelian Anggur melebihi stock, yakni ${stAnggur}. Masukan Kembali Jumlah Pembelian`)
+        qtyAnggur <= 5
+    }
+
+    qtyJeruk = +prompt(`Harga Jeruk Rp ${Jeruk} / buah. Stock yang tersedia ${stJeruk}. Mau beli berapa?`)
+    while (qtyJeruk > stJeruk) {
+        qtyJeruk = +prompt(`Pembelian Jeruk melebihi stock, yakni ${stJeruk}. Masukan Kembali Jumlah Pembelian`)
+        qtyJeruk <= 5
+    }
+
+    totalApel = Apel * qtyApel
+    totalAnggur = Anggur * qtyAnggur
+    totalJeruk = Jeruk * qtyJeruk
+    totalHarga = totalApel + totalAnggur + totalJeruk
+
+    listBelanja = +prompt(`List dan total belanja anda :
+        1. Apel ${qtyApel} buah x Rp ${Apel} = Rp ${totalApel}
+        2. Anggur ${qtyAnggur} buah x Rp ${Anggur} = Rp ${totalAnggur}
+        3. Jeruk ${qtyJeruk} buah x Rp ${Jeruk} = Rp ${totalJeruk}
+
+        Total Biaya :
+        Rp ${totalHarga}
+
+        Masukkan besaran nominal yang akan anda bayarkan :
+        `)
+    // -------------------
+    if (listBelanja<totalHarga) {
+        while(listBelanja<totalHarga) {
+            listBelanja = +prompt(`List dan total belanja anda :
+        1. Apel ${qtyApel} buah x Rp ${Apel} = Rp ${totalApel}
+        2. Anggur ${qtyAnggur} buah x Rp ${Anggur} = Rp ${totalAnggur}
+        3. Jeruk ${qtyJeruk} buah x Rp ${Jeruk} = Rp ${totalJeruk}
+
+        Total Biaya :
+        Rp ${totalHarga}
+
+        Masukkan besaran nominal yang akan anda bayarkan. 
+        *Maaf, uang yang anda masukan kurang :
+
+            `)
+            listBelanja>=totalHarga
+
+            if (listBelanja == totalHarga) {
+                alert(`Terimakasih. Uang anda pas`)
+            } else if (listBelanja > totalHarga) {
+                alert(`Terimakasih. Uang kembalian anda Rp ${(listBelanja-totalHarga)}`)
+            }
+        }
+            
+
+    } else if (listBelanja == totalHarga) {
+        alert(`Terimakasih. Uang anda pas.`)
+    } else if (listBelanja > totalHarga) {
+        alert(`Terimakasih. Uang kembalian anda Rp ${(listBelanja - totalHarga)}`)
+    }
+</script>
