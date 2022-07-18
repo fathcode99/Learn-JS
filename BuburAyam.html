@@ -1,0 +1,16 @@
+<script>
+    question = prompt(`Apakah Anda suka bubur Ayam ? (Ya / Tidak)`)
+
+    if (question == 'Ya') {
+        question2 = prompt(`Apakah anda suka di aduk? (Ya / Tidak)`)
+        if (question2 == `Ya`) {
+            alert(`Kalau di aduk ancur - ancuran`)
+        } else if (question2 == `Tidak`) {
+            alert(`Anda berarti manusia beradab`)
+        }
+    } else if (question == `Tidak`) {
+        alert(`Cobain lagi deh kapan - kapan, sehat bergizi, siapa tahu jadi suka`)
+    } else {
+        false
+    }
+</script>

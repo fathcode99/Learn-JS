@@ -10,6 +10,11 @@
 //     b--
 // } while(b > 0)
 
+let b = 5
+do {
+    console.log(b)
+} while(b > 0)
+
 // for(let c = 5;c > 0;c--)
 // console.log(c)
 
@@ -35,10 +40,10 @@
 
 // CONTINUE
 // tampilkan hanya angka ganjil
-for (let g = 5; g > 0; g--) {
-    if (g % 2 == 0) continue
-    console.log(g)
-}
+// for (let g = 5; g > 0; g--) {
+//     if (g % 2 == 0) continue
+//     console.log(g)
+// }
 
 // tampilkan huruf selain huruf 'l'
 // let str = 'Hello'

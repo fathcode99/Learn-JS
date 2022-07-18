@@ -10,19 +10,16 @@
     qtyApel = +prompt(`Harga Apel Rp ${Apel} / buah. Stock yang tersedia ${stApel}. Mau beli berapa?`)
     while (qtyApel > stApel) {
         qtyApel = +prompt(`Pembelian Apel melebihi stock, yakni ${stApel}. Masukan Kembali Jumlah Pembelian`)
-        qtyApel <= 5
     }
 
     qtyAnggur = +prompt(`Harga Anggur Rp ${Anggur} / buah. Stock yang tersedia ${stAnggur}. Mau beli berapa?`)
     while (qtyAnggur > stAnggur) {
         qtyAnggur = +prompt(`Pembelian Anggur melebihi stock, yakni ${stAnggur}. Masukan Kembali Jumlah Pembelian`)
-        qtyAnggur <= 5
     }
 
     qtyJeruk = +prompt(`Harga Jeruk Rp ${Jeruk} / buah. Stock yang tersedia ${stJeruk}. Mau beli berapa?`)
     while (qtyJeruk > stJeruk) {
         qtyJeruk = +prompt(`Pembelian Jeruk melebihi stock, yakni ${stJeruk}. Masukan Kembali Jumlah Pembelian`)
-        qtyJeruk <= 5
     }
 
     totalApel = Apel * qtyApel
