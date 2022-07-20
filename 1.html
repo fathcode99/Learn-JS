@@ -1,0 +1,103 @@
+<script>
+let fruit = [["Apel", "Rp 10.000 /kg", "Stock 5"] , ["Anggur", "Rp 15.000 /kg", "Stock 5"] , ["Jeruk", "Rp 20.000 /kg", "Stock 5"]]
+let menu = ["Daftar Buah" , "Tambah List Buah" , "Menghapus Buah" , "Membeli Buah", "Exit"]
+
+// SELAMAT DATANG
+let welcome = +prompt(`Selamat Datang di Toko Buah Fresh:
+ 1. ${menu[0]}\n 2. ${menu[1]}\n 3. ${menu[2]}\n 4. ${menu[3]}\n 5. ${menu[4]} 
+`)
+
+// DAFTAR BUAH
+if (welcome == 1) {
+for(;daftarBuah = 1;) {
+let daftarBuah = alert(`Berikut daftar buah yang tersedia :
+1. ${fruit[0].join(" ")}\n2. ${fruit[1].join(" ")}\n3. ${fruit[2].join(" ")}
+`) 
+}
+
+// TAMBAHKAN BUAH
+} else if (welcome == 2) { 
+    tambahBuah = prompt(`Tambahkan nama buah`)
+    tambahHarga = +prompt(`Tambahkan harga /kg`)
+    tambahStock = +prompt(`Tambahkan jumlah stock`)
+    alert(`Buah ${tambahBuah} harga ${tambahHarga} stock ${tambahStock}, telah berhasil di tambahkan`)
+
+// MENGHAPUS BUAH
+} else if (welcome == 3) {
+    hapusBuah = +prompt(`Buah nomer berapa yang ingin di hapus ? 
+    1. ${fruit[0].join(" ")}\n2. ${fruit[1].join(" ")}\n3. ${fruit[2].join(" ")}
+    `)
+    alert(`Buah nomer ${hapusBuah} sudah di hapus`)
+
+// MEMBELI BUAH
+} else if (welcome == 4) {
+    qtyApel = +prompt(`Harga Apel Rp ${Apel} / buah. Stock yang tersedia ${stApel}. Mau beli berapa?`)
+    while (qtyApel > stApel) {
+        qtyApel = +prompt(`Pembelian Apel melebihi stock, yakni ${stApel}. Masukan Kembali Jumlah Pembelian`)
+    }
+
+    qtyAnggur = +prompt(`Harga Anggur Rp ${Anggur} / buah. Stock yang tersedia ${stAnggur}. Mau beli berapa?`)
+    while (qtyAnggur > stAnggur) {
+        qtyAnggur = +prompt(`Pembelian Anggur melebihi stock, yakni ${stAnggur}. Masukan Kembali Jumlah Pembelian`)
+    }
+
+    qtyJeruk = +prompt(`Harga Jeruk Rp ${Jeruk} / buah. Stock yang tersedia ${stJeruk}. Mau beli berapa?`)
+    while (qtyJeruk > stJeruk) {
+        qtyJeruk = +prompt(`Pembelian Jeruk melebihi stock, yakni ${stJeruk}. Masukan Kembali Jumlah Pembelian`)
+    }
+
+    totalApel = Apel * qtyApel
+    totalAnggur = Anggur * qtyAnggur
+    totalJeruk = Jeruk * qtyJeruk
+    totalHarga = totalApel + totalAnggur + totalJeruk
+
+    listBelanja = +prompt(`List dan total belanja anda :
+        1. Apel ${qtyApel} buah x Rp ${Apel} = Rp ${totalApel}
+        2. Anggur ${qtyAnggur} buah x Rp ${Anggur} = Rp ${totalAnggur}
+        3. Jeruk ${qtyJeruk} buah x Rp ${Jeruk} = Rp ${totalJeruk}
+
+        Total Biaya :
+        Rp ${totalHarga}
+
+        Masukkan besaran nominal yang akan anda bayarkan :
+        `)
+    // -------------------
+    if (listBelanja<totalHarga) {
+        while(listBelanja<totalHarga) {
+            listBelanja = +prompt(`List dan total belanja anda :
+        1. Apel ${qtyApel} buah x Rp ${Apel} = Rp ${totalApel}
+        2. Anggur ${qtyAnggur} buah x Rp ${Anggur} = Rp ${totalAnggur}
+        3. Jeruk ${qtyJeruk} buah x Rp ${Jeruk} = Rp ${totalJeruk}
+
+        Total Biaya :
+        Rp ${totalHarga}
+
+        Masukkan besaran nominal yang akan anda bayarkan. 
+        *Maaf, uang yang anda masukan kurang :
+
+            `)
+            listBelanja>=totalHarga
+
+            if (listBelanja == totalHarga) {
+                alert(`Terimakasih. Uang anda pas`)
+            } else if (listBelanja > totalHarga) {
+                alert(`Terimakasih. Uang kembalian anda Rp ${(listBelanja-totalHarga)}`)
+            }
+        }
+            
+
+    } else if (listBelanja == totalHarga) {
+        alert(`Terimakasih. Uang anda pas.`)
+    } else if (listBelanja > totalHarga) {
+        alert(`Terimakasih. Uang kembalian anda Rp ${(listBelanja - totalHarga)}`)
+    }
+
+// EXIT
+} else if (welcome == 5) {
+    false
+
+// ELSE
+} else {
+    alert(`Harap pilih nomer antara 1-5`)
+}
+</script>

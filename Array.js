@@ -1,6 +1,8 @@
 // ARRAY
 // ARRAY SYNTAX
 let things = [5, "Book", true, undefined, null, [], {}]
+console.log(things.length)
+console.log(things[2])
 
 // ACCESS ARRAY 
 console.log(things[1])
@@ -12,7 +14,7 @@ console.log(things)
 
 // CREATE NEW INDEX 
 console.log(things.length)
-things[8] = "true" //Akan menambah space kosong di index ke 7
+things[8] = "new index" //Akan menambah space kosong di index ke 7
 console.log(things)
 
 // PUSH AND POP
@@ -29,16 +31,19 @@ console.log(a)
 a.shift()
 console.log(a) //untuk menghapus data awal array
 
-// SPLICE ==> untuk mengganti data array
+// SPLICE ==> untuk mengganti(replace) data array
 let number = [1,2,3,4,5,6,7]
+// SPLICE UNTUK MENGGANTI
 number.splice(1, 3, 7)
 // number.splice(a, b, c)
 // cara baca : data yang di ganti mulai dari index ke-a di tambah b index, di ganti dg data c 
+// res [ 1, 7, 5, 6, 7 ]
 console.log(number)
 // SPLICE FOR DELETE
 let number2 = [1,2,3,4,5,6,7]
 number2.splice(1,3)
 // cara baca : data yg dhapus mulai index ke a + b index
+// res [ 1, 5, 6, 7 ]
 console.log(number2)
 // SPLICE FOR INSERT
 number3 = [1,2,3,4,5,6,7]
@@ -51,11 +56,11 @@ delete b[1]
 console.log(b)
 
 // SLICE => untuk mengambil data array
-let c = [1,2,3,4,5,6,7]
-let c2 = c.slice(1,3) //utk mengambil data mulai index 1 sampai index ke 3, tp data ke 3 tdk di ambil
-let c3 = c.slice(2,4) 
-console.log(c2)
-console.log(c3)
+// let c = [1,2,3,4,5,6,7]
+// let c2 = c.slice(1,3) //utk mengambil data mulai index 1 sampai index ke 3, tp data ke 3 tdk di ambil
+// let c3 = c.slice(2,4) 
+// console.log(c2)
+// console.log(c3)
 
 // INCLUDES => utk mengecek apakah value tsb ada dalam var array nya
 let d = [1,2,3,4,5,6]
@@ -102,4 +107,8 @@ console.log(arr5)
 // ARRAY 2 DIMENSION
 let j = [[1,2], [3,4],[5,6], 7, 8]
 // how to get 5 ?
-console.log(j[2][0])
+console.log(j[2][0,1])
+
+let k = [[1,2], [3,4],[5,6,8], 7, 8]
+// how to get 5,6 ?
+console.log(k[2][0],j[2][1])
