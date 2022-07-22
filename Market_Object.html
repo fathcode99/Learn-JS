@@ -1,0 +1,150 @@
+<script>
+    let products = [
+        {
+            name : "Apel",
+            price : 10000,
+            stock : 5,
+            sugarLevel : `Medium`,
+            category : `Fruits`
+        },
+
+        {
+            name : "French Fries",
+            price : 15000,
+            stock : 7,
+            expired : 2022,
+            category : `Fast Food`
+        },
+
+        {
+            name : "Pants",
+            price : 20000,
+            stock : 9,
+            size : `M`,
+            category : `Pants`
+        },
+
+        {
+            name : "Iron",
+            price : 25000,
+            stock : 11,
+            warranty : true,
+            category : `Electronic`
+        }     
+    ]
+
+    let cart = []
+    totalPrice = 0
+
+    class Product {
+        constructor(name, price, stock) {
+            this.name = name,
+            this.price = price,
+            this.stock = stock
+        }
+    }
+    
+    class Fruit extends Product {
+        constructor(name, price, stock, cate, sugar) {
+            super(name, price, stock)
+            this.sugarLevel = sugar
+            this.category = cate
+        }
+    }
+
+    class FastFood extends Product {
+        constructor(name, price, stock, cate, exp) {
+            super(name, price, stock)
+            this.expired = exp
+            this.category = cate
+        }
+    }
+
+    class Cloth extends Product {
+        constructor(name, price, stock, cate, size) {
+            super(name, price, stock)
+            this.size= size
+            this.category = cate
+        }
+    }
+
+    class Elect extends Product {
+        constructor(name, price, stock, cate, warranty) {
+            super(name, price, stock)
+            this.warranty = warranty
+            this.category = cate
+        }
+    }
+
+    // function untuk menampilkan daftar buah
+
+    // let showList = () => {
+    //     let res = `Daftar Barang di Toserba : \n`
+    //     products.forEach((item, index) => {
+    //         res += `${index + 1}. ${item.name}, ${item.category} Rp ${item.price}. Stock = ${item.stock}, Sugar Level = ${item.sugarLevel} \n`
+    //     })
+    //     return res
+    // }
+    // let list = showList()
+    // alert(list)
+
+    let showList = () => {
+        let res = `Daftar Barand di Toserba : \n`
+        products.forEach((item, index) => {
+            let temp = `${index +1}. `
+            for(let prop in item) {
+                if(prop === `category`) {
+                    temp += `${item[prop]}.`
+                } else {
+                    temp += `${item[prop]}, `
+                }
+            }
+            res += temp + `\n`
+        })
+        return res
+    }
+
+    while (true) {
+        let menuUtama = +prompt(`Selamat datang di Toserba :
+        1. Daftar Barang
+        2. Tambah Barang
+        3. Hapus Barang
+        4. Beli Barang
+        5. Exit`)
+
+        if (menuUtama == 1) {
+            let list = showList()
+            alert(list)
+        } else if (menuUtama == 2) {
+            while (true) {
+                let idCate = +prompt(`Produk dengan kategori apa yang ingin di tambahkan ?
+                1. Fruit
+                2. Fast Food
+                3. Cloth
+                4. Electronik`)
+
+                if (idCate === 1) {
+                    let name = prompt(`Apa nama barangnya ?`)
+                    let price = +prompt(`Berapa harganya?`)
+                    let stock = +prompt(`Berapa stocknya ?`)
+                    let sugar = prompt(`Bagaimana kadar gulanya? (Tulis Low, Medium atau High)`)
+
+                    let buah = new Fruit(name, price, stock, `Fruit`, sugar)
+                    products.push(buah)
+
+                    alert(`Data barang ${name} sudah di tambahkan`)
+
+                    let konfirmasi = confirm(`Mau tambah barang lagi ?`)
+                    if(!konfirmasi) break
+                }
+            }
+        } else if (menuUtama == 3) {
+        } else if (menuUtama == 4) {
+        } else if (menuUtama == 5) {
+            alert(`Terimakasih. Silahkan datang kembali !`)
+            break
+        } else {
+            alert(`Menu tidak tersedia`)
+        }
+    }
+</script>
