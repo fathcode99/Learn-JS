@@ -89,7 +89,7 @@
     // alert(list)
 
     let showList = () => {
-        let res = `Daftar Barand di Toserba : \n`
+        let res = `Daftar Barang di Toserba : \n`
         products.forEach((item, index) => {
             let temp = `${index +1}. `
             for(let prop in item) {
@@ -124,7 +124,7 @@
                 4. Electronik`)
 
                 if (idCate === 1) {
-                    let name = prompt(`Apa nama barangnya ?`)
+                    let name = prompt(`Apa nama buahnya ?`)
                     let price = +prompt(`Berapa harganya?`)
                     let stock = +prompt(`Berapa stocknya ?`)
                     let sugar = prompt(`Bagaimana kadar gulanya? (Tulis Low, Medium atau High)`)

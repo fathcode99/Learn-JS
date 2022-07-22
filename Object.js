@@ -55,6 +55,7 @@ class Artist {
 }
 
 let artist1 = new Artist(`Isyana`, `Mawar`, `23`)
+let artist2 = new Artist(`Andi`, `Flower`, 22)
 console.log(artist1)
 
 // --------------------
@@ -105,7 +106,6 @@ class Animal extends LivingThings {
         super(name, age)
         this.fly = fly
     }
-
     tail = () => {
         console.log(`tail`)
     }
