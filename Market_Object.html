@@ -207,18 +207,20 @@
             products.splice(index-1, 1)
 
             alert(`Data barang ke ${index} sudah terhapus`)
+
         } else if (menuUtama == 4) {
             while (true) {
                 let list = showList ()
                 list += `Barang nomer berapa yang anda ingin beli ?`
 
-                let indexBuy = +prompt(list)
-                let qty = +prompt(`Berapa ${products[indexBuy-1].name} yang anda ingin beli ? *Stock = ${products[indexBuy].stock} `)
+                var indexBuy = +prompt(list)
                 
                 while (true) {
-                    if (qty > products[indexBuy].stock) {
+                    var qty = +prompt(`Berapa ${products[indexBuy-1].name} yang anda ingin beli ? *Stock = ${products[indexBuy-1].stock} `)
+                    if (qty > products[indexBuy-1].stock ) {
                         alert(`Jumlah melebihi stock. Mohon input sesuai stock yang ada`)
-                    } else if (qty <= products[indexBuy].stock) {
+                    } else if (qty <= products[indexBuy-1].stock) {
+
                         let ind = null
                         cart.forEach((item, indexCart) => {
                             if (item.name === products[indexBuy-1].name) {
@@ -232,9 +234,14 @@
                                 price : products[indexBuy-1].price,
                                 qty
                             })
+
+                            // products[indexBuy-1].stock -= qty
+
                         } else {
                             let temp = cart[ind].qty + qty
                             cart[ind].qty = temp
+
+                            // products[indexBuy-1].stock -= qty
                         }
 
                         // untuk menghitung total price
@@ -242,22 +249,21 @@
                         cart.forEach(item => {
                             count += item.price * item.qty
                         })
-
                         totalPrice = count
+                        
                         alert(`Barang ${products[indexBuy-1].name} sudah di tambahkan ke keranjang`)
         
                         keranjang = showCart()
                         alert(keranjang)
-                        // break
-
+                        break
                     }
-
-                    // konfirmasi apakah ingin membeli buah lagi 
-                    let konfirmasi = confirm(`Apakah anda mau membeli buah yg lain ?`)
-                        
-                    // kalau tidak maka looping pembelian buah akan berhenti, dan lanjut ke proses payment
-                    if (!konfirmasi) break
                 }
+
+                // konfirmasi apakah ingin membeli buah lagi 
+                let konfirmasi = confirm(`Apakah anda mau membeli buah yg lain ?`)
+                    
+                // kalau tidak maka looping pembelian buah akan berhenti, dan lanjut ke proses payment
+                if (!konfirmasi) break
             }
             while (true) {
                 keranjang = showCart()
@@ -273,6 +279,7 @@
                     alert(`Terimakasih`)
                     break
                     cart = []
+
                 } else if (nominal > totalPrice) {
                     // kalau uang berlebih
                     alert(`Terimakasih. Uang kembalian anda Rp ${(nominal-totalPrice).toLocaleString()}
