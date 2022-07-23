@@ -88,6 +88,7 @@
     // let list = showList()
     // alert(list)
 
+    // function untuk menampulkan daftar barang
     let showList = () => {
         let res = `Daftar Barang di Toserba : \n`
         products.forEach((item, index) => {
@@ -101,6 +102,17 @@
             }
             res += temp + `\n`
         })
+        return res
+    }
+    
+    // function untuk menampilkan daftar barang di keranjang
+    let showCart = () => {
+        let res = `Daftar keranjang anda : \n`
+        cart.forEach((item, index) => {
+            res += `${index+1}. ${item.name} Rp ${item.price} x ${item.qty} = Rp ${item.price*item.qty}\n`
+        })
+        res += `Total Belanja Anda = Rp ${totalPrice}`
+
         return res
     }
 
@@ -136,10 +148,139 @@
 
                     let konfirmasi = confirm(`Mau tambah barang lagi ?`)
                     if(!konfirmasi) break
+
+                } else if (idCate === 2) {
+                    let name = prompt(`Apa nama makanan nya ?`)
+                    let price = +prompt(`Berapa harganya?`)
+                    let stock = +prompt(`Berapa stocknya ?`)
+                    let exp = prompt(`Sampai tahun berapa tahun kadaluarsanya ?`)
+
+                    let food = new FastFood(name, price, stock, `FastFood`, exp)
+                    products.push(food)
+
+                    alert(`Data barang ${name} sudah di tambahkan`)
+
+                    let konfirmasi = confirm(`Mau tambah barang lagi ?`)
+                    if(!konfirmasi) break
+                } else if (idCate === 3) {
+                    let name = prompt(`Apa jenis pakaiannya nya ?`)
+                    let price = +prompt(`Berapa harganya?`)
+                    let stock = +prompt(`Berapa stocknya ?`)
+                    let size = prompt(`Berapak ukuran pakaiannya ? (M, L, XL, XXL`)
+
+                    let cloth = new Cloth(name, price, stock, `Cloth`, size)
+                    products.push(cloth)
+
+                    alert(`Data barang ${name} sudah di tambahkan`)
+
+                    let konfirmasi = confirm(`Mau tambah barang lagi ?`)
+                    if(!konfirmasi) break
+                    
+                } else if (idCate === 4) {
+                    let name = prompt(`Apa nama barangnya ?`)
+                    let price = +prompt(`Berapa harganya?`)
+                    let stock = +prompt(`Berapa stocknya ?`)
+                    // let warranty = confirm(`Apakah barang ini ada garansinya`)
+                    let warranty = prompt(`Apakah barang ini ada garansinya ? (Tulis True atau False)`)
+                    if (warranty = `True`) {
+                        warranty = true
+                    } else if (warranty = `False`) {
+                        warranty = false
+                    }
+
+                    let electronik = new Elect(name, price, stock, `Electronik`, warranty)
+                    products.push(electronik)
+
+                    alert(`Data barang ${name} sudah di tambahkan`)
+
+                    let konfirmasi = confirm(`Mau tambah barang lagi ?`)
+                    if(!konfirmasi) break
+                } else {
+                    alert(`Tolong input menu yang tersedia !`)
                 }
             }
         } else if (menuUtama == 3) {
+            let list = showList ()
+            list += `Barang nomer berapa yang anda ingin hapus ?`
+
+            let index = +prompt(list)
+            products.splice(index-1, 1)
+
+            alert(`Data barang ke ${index} sudah terhapus`)
         } else if (menuUtama == 4) {
+            while (true) {
+                let list = showList ()
+                list += `Barang nomer berapa yang anda ingin beli ?`
+
+                let indexBuy = +prompt(list)
+                let qty = +prompt(`Berapa ${products[indexBuy-1].name} yang anda ingin beli ? *Stock = ${products[indexBuy].stock} `)
+                
+                while (true) {
+                    if (qty > products[indexBuy].stock) {
+                        alert(`Jumlah melebihi stock. Mohon input sesuai stock yang ada`)
+                    } else if (qty <= products[indexBuy].stock) {
+                        let ind = null
+                        cart.forEach((item, indexCart) => {
+                            if (item.name === products[indexBuy-1].name) {
+                                ind = indexCart
+                            }
+                        })
+                        
+                        if (ind === null) {
+                            cart.push ({
+                                name : products[indexBuy-1].name,
+                                price : products[indexBuy-1].price,
+                                qty
+                            })
+                        } else {
+                            let temp = cart[ind].qty + qty
+                            cart[ind].qty = temp
+                        }
+
+                        // untuk menghitung total price
+                        let count = 0
+                        cart.forEach(item => {
+                            count += item.price * item.qty
+                        })
+
+                        totalPrice = count
+                        alert(`Barang ${products[indexBuy-1].name} sudah di tambahkan ke keranjang`)
+        
+                        keranjang = showCart()
+                        alert(keranjang)
+                        // break
+
+                    }
+
+                    // konfirmasi apakah ingin membeli buah lagi 
+                    let konfirmasi = confirm(`Apakah anda mau membeli buah yg lain ?`)
+                        
+                    // kalau tidak maka looping pembelian buah akan berhenti, dan lanjut ke proses payment
+                    if (!konfirmasi) break
+                }
+            }
+            while (true) {
+                keranjang = showCart()
+                keranjang += `Tolong input nominal pembayaran`
+    
+                let nominal = +prompt(keranjang)
+
+                if (nominal < totalPrice) {
+                    // kalau uang kurang
+                    alert(`Tolong input nilai yang sesuai dengan pembayaran`)
+                } else if (nominal == totalPrice) {
+                    // kalau uang pas
+                    alert(`Terimakasih`)
+                    break
+                    cart = []
+                } else if (nominal > totalPrice) {
+                    // kalau uang berlebih
+                    alert(`Terimakasih. Uang kembalian anda Rp ${(nominal-totalPrice).toLocaleString()}
+                    Pesanan akan segera diantar`)
+                    break
+                    cart = []
+                }
+            }
         } else if (menuUtama == 5) {
             alert(`Terimakasih. Silahkan datang kembali !`)
             break
