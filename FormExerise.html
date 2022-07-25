@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <label for="">Name : </label>&emsp;
+    <input type="text" id="name">
+    <br>
+    <br>
+    <label for="">Price : </label>&emsp;
+    <input type="number" id="price">
+    <br>
+    <br>
+    <label for="">Condition : </label>&emsp;
+    <input type="radio" name="cond" value="New">New
+    <input type="radio" name="cond" value="Second">Second
+    <br>
+    <br>
+    <label for="">Warehouse: </label>
+    <select name="" id="warehouse">
+        <option value="Jakarta">Jakarta</option>
+        <option value="Bandung">Bandung</option>
+        <Option value="Surabaya">Surabaya</Option>
+        <option value="Semarang">Semarang</option>
+    </select>
+    <br>
+    <br>
+    <label for="">Courier : </label>
+    <input type="checkbox" name="courier" value="JNE">JNE
+    <input type="checkbox" name="courier" value="JNT">JNT
+    <input type="checkbox" name="courier" value="Ninja Express">Ninja Express
+    <br>
+    <br>
+    <button onclick="showResult()">Click Here !</button>
+    <p>Result</p>
+</body>
+<script>
+    let showResult = () => {
+        let name = document.getElementById('name').value
+        let price = parseInt(document.getElementById('price').value)
+    
+        let condition
+        document.getElementsByName('cond').forEach(item => {
+            if(item.checked === true) {
+                condition = item.value
+            }
+        })
+
+        let warehouse = document.getElementById('warehouse').value
+
+        let courier = ``
+        document.getElementsByName(`courier`).forEach(item => {
+            if(item.checked === true) {
+                courier += item.value + ` `
+            }
+        })
+
+        // console.log(name, price, condition, warehouse, courier)
+        let newDiv = document.createElement(`div`)
+        newDiv.innerHTML = `
+        1. Name = ${name} <br>
+        2. Price = Rp ${price.toLocaleString()} <br>
+        3. Condition = ${condition} <br>
+        4. Warehouse = ${warehouse} <br>
+        5. Courier = ${courier}
+        `
+        document.getElementsByTagName(`p`)[0].after(newDiv)
+    }
+</script>
+</html>
