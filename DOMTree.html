@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- comment -->
+    <div id="hello" name="greet">
+        <!-- node comment -->
+    </div>
+
+    <table>
+        <tr>
+            <td></td>
+        </tr>
+    </table>
+
+    <div class="text">World</div>
+    <div class="text Apple">Apple</div>
+    <div id="test"></div>
+</body>
+<script>
+    // How to access HTML DOM
+        // TOP Nodes :
+        let html = document.documentElement
+        console.log(html)
+
+        let body = document.body
+        console.log(body)
+
+        let head = document.head
+        console.log(head)
+
+        // node vs element
+        // node include comment and text, element = <tag></tag>
+
+        // childNodes
+        let bodyNode = document.body.childNodes //collection list of node
+        console.log(bodyNode)
+        console.log(document.body.firstChild)
+        console.log(document.body.lastChild)
+
+        /* Element-only navigation
+        Navigation properties listed above refer to all nodes. For instance, in childnodes 
+        we can see both of text nodes, element nodes, and even comment nodes if there exist.
+        */
+       
+        let bodyElement = document.body.children // get all element inside body
+        console.log(bodyElement)
+        console.log(document.body.firstElementChild)
+        console.log(document.body.lastElementChild)
+        console.log(document.body.firstElementChild.nextElementSibling)
+        console.log(document.body.firstElementChild.previousElementSibling)
+
+        // Searching : getElement*, querySelector*
+        // get element by id
+        // let div = document.getElementById(`hello`) // return singe element
+        // console.log(div)
+
+        // Get or return collection element using : 
+        console.log(document.getElementsByTagName(`div`))
+        console.log(document.getElementsByTagName(`div`)[1])
+        console.log(document.getElementsByClassName(`apple`))
+        console.log(document.getElementsByName(`greet`))
+
+        // How to manipulate in HTMl
+        /* Creating an element 
+        1. document.createElement(tag), create a New Element node with the given tag:
+        2. document.createTextNode(text), create a new text  node with the given text:
+        */
+        
+        let div2 = document.createElement(`div`) //create <div></div>
+        div2.innerHTML = `<b> new element </b>`
+        document.getElementById(`hello`).append(div2) //insert element
+        // before, after, prepend, append 
+        
+        // access text inside element => innerHTML or text Content
+        console.log(document.getElementById(`hello`).innerHTML)
+        console.log(document.getElementById(`hello`).textContent)
+
+        // console.log(document.getElementById(`test`))
+        console.log(document.getElementById(`test`)) // ini hanya utk ceck akses nya sudah benar atau belum
+        document.getElementById(`test`).innerHTML = `Ini hasil dari edit pakai Inner html`
+
+        // innerHTML can be modified
+        document.getElementsByClassName(`text`)[0].innerHTML = 'Lemon'
+</script>
+</html>
