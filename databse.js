@@ -38,3 +38,9 @@ class Product {
         this.stok = stok
     }
 }
+
+let indexEdit = null
+
+let cart = []
+
+let totalPrice = 0

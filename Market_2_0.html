@@ -85,10 +85,37 @@
                     <th>Nama</th>
                     <th>Harga</th>
                     <th>Stok</th>
+                    <th>Buy</th>
+                    <th colspan="2">Action</th>
                 </tr>
             </thead>
             <tbody></tbody>
         </table>
+    </fieldset>
+
+    <fieldset>
+        <legend>Cart</legend>
+        <table id="table-cart">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Kategori</th>
+                    <th>Nama</th>
+                    <th>Harga</th>
+                    <th>Qty</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        <br>
+        <button onclick="onPayment()">Payment</button>
+    </fieldset>
+
+    <fieldset>
+        <legend>Payment</legend>
+        <h3>Transaction Detail</h3>
+        <div id="trans"></div>
     </fieldset>
 </body>
 <script src="./databse.js"></script>
@@ -97,16 +124,35 @@
         let tbody = document.getElementById("table-data").tBodies[0]
         // console.log(tbody)
         let res =``
-        data.forEach(item => {
-            res += `
+        data.forEach((item, index) => {
+            if (index === indexEdit) {
+                res += `
             <tr>
                 <td><center>${item.id}</center></td>
                 <td><center>${item.kate}</center></td>
-                <td><center>${item.nama}</center></td>
-                <td><center>${item.harga}</center></td>
-                <td><center>${item.stok}</center></td>
+                <td><input type="text" id="nama-edit" value="${item.nama}"></td>
+                <td><input type="number" id="harga-edit" value="${item.harga}"></td>
+                <td><input type="number" id="stok-edit" value="${item.stok}"></td>
+                <td><center><button onclick="onTambah(${index} disabled)">Add</button></center></td>
+                <td><center><button onclick="onSave(${index})">Save</button></center></td>
+                <td><center><button onclick="onCancel()">Cancel</button></center></td>
             </tr>
             `
+
+            } else {
+                res += `
+                <tr>
+                    <td><center>${item.id}</center></td>
+                    <td><center>${item.kate}</center></td>
+                    <td><center>${item.nama}</center></td>
+                    <td><center>${item.harga}</center></td>
+                    <td><center>${item.stok}</center></td>
+                    <td><center><button onclick="onTambah(${index})">Add</button></center></td>
+                    <td><center><button onclick="onDelete(${index})">Delete</button></center></td>
+                    <td><center><button onclick="onEdit(${index})">Edit</button></center></td>
+                </tr>
+                `
+            }
         }) 
 
         tbody.innerHTML = res
@@ -132,19 +178,23 @@
         let harga2 = document.getElementById("harga-2").value
         let kate = document.getElementById("filter-cate").value
 
-        
-        if (value && !harga1 && !harga2 && !kate) {
-            let filterByNama = products.filter(item => {
+        let filterByNama = products.filter(item => {
                     return item.nama.toLowerCase().includes(value.toLowerCase())
             })
             showData(filterByNama)
-        }
-        else if (value && harga1 && !harga2 && !kate) {
-            let filterByNama = products.filter(item => {
-                return item.nama.toLowerCase().includes(value.toLowerCase())
-            })
-            showData(filterByNama2)
-        }
+
+        // if (value && !harga1 && !harga2 && !kate) {
+        //     let filterByNama = products.filter(item => {
+        //             return item.nama.toLowerCase().includes(value.toLowerCase())
+        //     })
+        //     showData(filterByNama)
+        // }
+        // else if (value && harga1 && !harga2 && !kate) {
+        //     let filterByNama = products.filter(item => {
+        //         return item.nama.toLowerCase().includes(value.toLowerCase()) && item.harga >= harga1
+        //     })
+        //     showData(filterByNama2)
+        // }
         
     }
 
@@ -183,6 +233,112 @@
 
     let onReset = () => {
         showData(products)
+    }
+</script>
+<script>
+    let onEdit = (index) => {
+        // alert(`trigered`)
+        indexEdit = index
+        showData(products)
+    }
+
+    let onCancel = (index) => {
+        // alert(`trigered`)
+        indexEdit = null
+        showData(products)
+    }
+    let onDelete = (index) => {
+        products.splice(index, 1)
+        showData(products)
+    }
+    let onSave = (index) => {
+        let newNama = document.getElementById("nama-edit").value
+        let newHarga = +document.getElementById("harga-edit").value
+        let newStok = +document.getElementById("stok-edit").value
+        let newId = Date.now()
+
+        products[index].nama = newNama
+        products[index].harga = newHarga
+        products[index].stok = newStok
+        products[index].id = newId
+
+        indexEdit = null
+        showData(products)
+    }
+
+    let showCart = () => {
+        let tbody = document.getElementById("table-cart").tBodies[0]
+        // console.log(tbody)
+
+        let res = ``
+        cart.forEach((item, index) => {
+            res += `
+            <tr>
+                <td><center>${item.id}</center></td>
+                <td><center>${item.kate}</center></td>
+                <td><center>${item.nama}</center></td>
+                <td><center>${item.harga}</center></td>
+                <td><center>${item.qty}</center></td>
+                <td><center><button onclick ="onDeleteCart(${index})">Delete</button></center></td>
+            </tr>
+            `
+        })
+
+        tbody.innerHTML = res
+    }
+
+    let onTambah = (index) => {
+        let buyProduct = products[index]
+        
+        let ada = null
+        cart.forEach(item => {
+            if (item.nama === buyProduct.nama) {
+                ada = 1
+            }
+        })
+
+        if (ada == 1) {
+            cart.forEach(item => {
+            if (item.nama === buyProduct.nama) {
+                item.qty += 1
+            }
+            })
+        } else {
+            buyProduct.qty = 1
+            delete buyProduct.stok
+    
+            cart.push(buyProduct)
+        }
+
+        products[index].stok -= 1
+        // console.log(buyProduct)
+        // showData(products)
+        showCart(cart)
+    }
+
+    let onDeleteCart = (index) => {
+        cart.splice(index, 1)
+        showCart()
+    }
+
+    let onPayment = () => {
+        let div = document.getElementById("trans")
+
+        let res = ``
+        cart.forEach(item => {
+            let totalPerProduct = item.harga * item.qty
+            totalPrice += totalPerProduct
+            res += `
+            <p>${item.kate} | ${item.nama} | ${item.harga} x ${item.qty} | Total = Rp ${item.harga * item.qty}</p>
+            `
+        })
+        res +=`<b>Sub Total Belanja : ${totalPrice}</b> <br>`
+        res +=`<b>PPN : ${totalPrice / 10}</b> <br>`
+        res +=`<b>TOTAL BELANJA : ${totalPrice + (totalPrice / 10)}</b>`
+
+
+        div.innerHTML = res
+        // console.log(totalPrice)
     }
 </script>
 </html>

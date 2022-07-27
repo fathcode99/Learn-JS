@@ -45,16 +45,16 @@
 // var date = new Date();
 // console.log(date.getMinutes())
 
-function main() {
-    var increase = 9;
-    var prices = [98.99, 15.2, 20, 1026];
+// function main() {
+//     var increase = 9;
+//     var prices = [98.99, 15.2, 20, 1026];
     
-    var count = new Array();
-    for (i=0; i < prices.length; i++) {
-        count[i] = prices[i] + increase
-    }
-    console.log(count)
-}
+//     var count = new Array();
+//     for (i=0; i < prices.length; i++) {
+//         count[i] = prices[i] + increase
+//     }
+//     console.log(count)
+// }
 // main()
 
 // let greeting = () => {
@@ -66,3 +66,9 @@ function main() {
 // }
 
 // console.log(greeting())
+
+let a = 1
+for (i=0; i<10;i++) {
+    i+=a
+    console.log(i)
+}
