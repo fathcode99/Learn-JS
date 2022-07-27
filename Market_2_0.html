@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    table, tr, th, td{
+        border: 1px solid black;
+        border-collapse: collapse;
+        margin: 3px;
+    }
+
+    #table-input, input, select {
+        margin: 5px;
+    }
+
+    table {
+        width: 70%;
+    }
+</style>
+<body>
+    <center><h1>MARKET V2.0</h1></center>
+    <fieldset>
+        <legend>Filter</legend>
+        <label for="filter-nama">Nama: </label>
+        <input type="text" id="filter-nama" oninput="filterNama(this.value)">
+        <br><br>
+
+        <label for="">Harga: </label>
+        <input type="number" id="harga-1" oninput="filterHarga()">
+        <label> - </label>
+        <input type="number" id="harga-2" oninput="filterHarga()">
+        <br><br>
+
+        <label>Kategori:</label>
+        <select id="filter-cate" onchange="filterKate()">
+            <option value="All">All</option>
+            <option value="Fast Food">Fast Food</option>
+            <option value="Electronic">Electronic</option>
+            <option value="Cloth">Cloth</option>
+            <option value="Fruit">Fruit</option>
+        </select>
+        <br><br>
+        <button onclick="onReset()">Reset</button>
+    </fieldset>
+
+    <fieldset>
+        <legend>Input Data</legend>
+        <table id="table-input">
+            <tr>
+                <td>
+                    <input type="text" id="nama" placeholder="Nama">
+                </td>
+                <td>
+                    <input type="number" id="harga" placeholder="Harga">
+                </td>
+                <td>
+                    <select id="kate">
+                        <option value="">All</option>
+                        <option value="Fast Food">Fast Food</option>
+                        <option value="Electronic">Electronic</option>
+                        <option value="Cloth">Cloth</option>
+                        <option value="Fruit">Fruit</option>
+                    </select>
+                </td>
+                <td>
+                    <input type="number" id="stok" placeholder="Stok">
+                </td>
+            </tr>
+        </table>
+        <br>
+        <button onclick="inputData()">Input</button>
+    </fieldset>
+
+    <fieldset>
+        <legend>Table Data</legend>
+        <table id="table-data">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Kategori</th>
+                    <th>Nama</th>
+                    <th>Harga</th>
+                    <th>Stok</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </fieldset>
+</body>
+<script src="./databse.js"></script>
+<script>
+    let showData = (data) => {
+        let tbody = document.getElementById("table-data").tBodies[0]
+        // console.log(tbody)
+        let res =``
+        data.forEach(item => {
+            res += `
+            <tr>
+                <td><center>${item.id}</center></td>
+                <td><center>${item.kate}</center></td>
+                <td><center>${item.nama}</center></td>
+                <td><center>${item.harga}</center></td>
+                <td><center>${item.stok}</center></td>
+            </tr>
+            `
+        }) 
+
+        tbody.innerHTML = res
+    }
+    
+    showData(products)
+
+    let inputData = () => {
+        let nama = document.getElementById("nama").value
+        let harga = +document.getElementById("harga").value
+        let kate = document.getElementById("kate").value
+        let stok = +document.getElementById("stok").value
+        let id = Date.now()
+        // console.log(nama,harga,kate,stok,id)
+
+        products.push(new Product(id, kate, nama, harga, stok))
+        showData(products)
+    }
+
+    let filterNama = (value) => {
+        // console.log(value)
+        let harga1 = document.getElementById("harga-1").value
+        let harga2 = document.getElementById("harga-2").value
+        let kate = document.getElementById("filter-cate").value
+
+        
+        if (value && !harga1 && !harga2 && !kate) {
+            let filterByNama = products.filter(item => {
+                    return item.nama.toLowerCase().includes(value.toLowerCase())
+            })
+            showData(filterByNama)
+        }
+        else if (value && harga1 && !harga2 && !kate) {
+            let filterByNama = products.filter(item => {
+                return item.nama.toLowerCase().includes(value.toLowerCase())
+            })
+            showData(filterByNama2)
+        }
+        
+    }
+
+
+    let filterKate = () => {
+        let kate = document.getElementById("filter-cate").value
+        let filterByKate = products.filter(item => {
+            return item.kate === kate
+        })
+        showData(filterByKate)
+    }
+
+    let filterHarga = () => {
+        let harga1 = document.getElementById("harga-1").value
+        let harga2 = document.getElementById("harga-2").value
+        if (harga1 && !harga2) {
+            let filterMinHarga = products.filter(item => {
+                return item.harga >= harga1
+            })
+            showData(filterMinHarga)
+        } else if (!harga1 && harga2) {
+            let filterMaxHarga = products.filter(item => {
+                return item.harga <= harga2
+            })
+            showData(filterMaxHarga)
+        } else if(!harga1 && !harga2) {
+            showData(products) 
+        } else {
+            let filterByHarga = products.filter(item => {
+                return item.harga >= harga1 && item.harga <= harga2
+            })
+            showData(filterByHarga)
+        }
+    }
+
+
+    let onReset = () => {
+        showData(products)
+    }
+</script>
+</html>
