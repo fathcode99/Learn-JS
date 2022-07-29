@@ -59,7 +59,7 @@
                 </td>
                 <td>
                     <select id="kate">
-                        <option value="">All</option>
+                        <option value="All">All</option>
                         <option value="Fast Food">Fast Food</option>
                         <option value="Electronic">Electronic</option>
                         <option value="Cloth">Cloth</option>
@@ -139,7 +139,10 @@
             </tr>
             `
 
-            } else {
+            } else if (item.stok == 0) {
+                res += ``
+
+            }else {
                 res += `
                 <tr>
                     <td><center>${item.id}</center></td>
@@ -178,24 +181,41 @@
         let harga2 = document.getElementById("harga-2").value
         let kate = document.getElementById("filter-cate").value
 
-        let filterByNama = products.filter(item => {
-                    return item.nama.toLowerCase().includes(value.toLowerCase())
-            })
-            showData(filterByNama)
-
-        // if (value && !harga1 && !harga2 && !kate) {
-        //     let filterByNama = products.filter(item => {
+        // let filterByNama = products.filter(item => {
         //             return item.nama.toLowerCase().includes(value.toLowerCase())
         //     })
         //     showData(filterByNama)
-        // }
-        // else if (value && harga1 && !harga2 && !kate) {
-        //     let filterByNama = products.filter(item => {
-        //         return item.nama.toLowerCase().includes(value.toLowerCase()) && item.harga >= harga1
-        //     })
-        //     showData(filterByNama2)
-        // }
-        
+
+        if (value && !harga1 && !harga2 && kate == "All" ) {
+            let filterByNama = products.filter(item => {
+                    return item.nama.toLowerCase().includes(value.toLowerCase())
+            })
+            showData(filterByNama)
+        }
+        else if (value && harga1 && !harga2 && kate == "All") {
+            let filterByNama = products.filter(item => {
+                return item.nama.toLowerCase().includes(value.toLowerCase()) && item.harga >= harga1
+            })
+            showData(filterByNama)
+        }
+        else if (value && !harga1 && !harga2 && kate !== "All") {
+            let filterByNama = products.filter(item => {
+                return item.nama.toLowerCase().includes(value.toLowerCase()) && item.kate === kate
+            })
+            showData(filterByNama)
+        }
+        else if (value && harga1 && !harga2 && kate !== "All") {
+            let filterByNama = products.filter(item => {
+                return item.nama.toLowerCase().includes(value.toLowerCase()) && item.harga >= harga1 && item.kate === kate
+            })
+            showData(filterByNama)
+        }
+        else if (value && harga1 && harga2 && kate !== "All") {
+            let filterByNama = products.filter(item => {
+                return item.nama.toLowerCase().includes(value.toLowerCase()) && item.harga >= harga1 && item.harga <= harga2 && item.kate === kate
+            })
+            showData(filterByNama)
+        }
     }
 
 
@@ -272,23 +292,29 @@
 
         let res = ``
         cart.forEach((item, index) => {
-            res += `
-            <tr>
-                <td><center>${item.id}</center></td>
-                <td><center>${item.kate}</center></td>
-                <td><center>${item.nama}</center></td>
-                <td><center>${item.harga}</center></td>
-                <td><center>${item.qty}</center></td>
-                <td><center><button onclick ="onDeleteCart(${index})">Delete</button></center></td>
-            </tr>
-            `
+            if (item.qty == 0) {
+                res += ``
+            } else {
+                res += `
+                <tr>
+                    <td><center>${item.id}</center></td>
+                    <td><center>${item.kate}</center></td>
+                    <td><center>${item.nama}</center></td>
+                    <td><center>${item.harga}</center></td>
+                    <td><center>${item.qty}</center></td>
+                    <td><center><button onclick ="onDeleteCart(${index})">Delete</button></center></td>
+                </tr>
+                `
+            }
         })
 
         tbody.innerHTML = res
     }
 
     let onTambah = (index) => {
-        let buyProduct = products[index]
+        let buyProduct = {...products[index]}
+        // let buyProduct2 = products[index]
+        // console.log(buyProduct1, buyProduct2)
         
         let ada = null
         cart.forEach(item => {
@@ -309,16 +335,27 @@
     
             cart.push(buyProduct)
         }
+        console.log(buyProduct)
 
         products[index].stok -= 1
         // console.log(buyProduct)
-        // showData(products)
+        showData(products)
         showCart(cart)
     }
 
     let onDeleteCart = (index) => {
-        cart.splice(index, 1)
+        // cart.splice(index, 1)
+        cart[index].qty -=1
         showCart()
+
+        products.forEach(item => {
+            if(item.nama === cart[index].nama) {
+                item.stok += 1
+            }
+        })
+        showData(products)
+
+
     }
 
     let onPayment = () => {
@@ -326,11 +363,15 @@
 
         let res = ``
         cart.forEach(item => {
-            let totalPerProduct = item.harga * item.qty
-            totalPrice += totalPerProduct
-            res += `
-            <p>${item.kate} | ${item.nama} | ${item.harga} x ${item.qty} | Total = Rp ${item.harga * item.qty}</p>
-            `
+            if (item.qty == 0) {
+                res += ``
+            } else {
+                let totalPerProduct = item.harga * item.qty
+                totalPrice += totalPerProduct
+                res += `
+                <p>${item.kate} | ${item.nama} | ${item.harga} x ${item.qty} | Total = Rp ${item.harga * item.qty}</p>
+                `
+            }
         })
         res +=`<b>Sub Total Belanja : ${totalPrice}</b> <br>`
         res +=`<b>PPN : ${totalPrice / 10}</b> <br>`
